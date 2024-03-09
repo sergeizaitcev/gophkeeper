@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mongo:
+    image: bitnami/mongodb:latest
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  gophkeeper:
+    build:
+      context: ..
+      dockerfile: build/Dockerfile
+    entrypoint: "/opt/gophkeeper/gophkeeperd -debug -database=mongodb://mongo:27017"
+    volumes:
+      - './users:/opt/gophkeeper/users'
+    restart: always
+    ports:
+      - '8433:8433'
+    depends_on:
+      - mongo

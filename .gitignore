@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+deployments/users
+internal/router/users
+
 # Test binary, built with `go test -c`
 *.test
 
